@@ -38,7 +38,7 @@ locals {
     ],
     "net" = [
       "roles/accesscontextmanager.policyAdmin",
-      "roles/compute.xpnAdmin",
+      "roles/compute.xpnAdmin"
     ],
     "proj" = [
       "roles/accesscontextmanager.policyAdmin",
@@ -60,6 +60,8 @@ locals {
       "roles/compute.orgSecurityPolicyAdmin",
       "roles/compute.orgSecurityResourceAdmin",
       "roles/dns.admin",
+      "roles/vpcaccess.admin",
+      "roles/iam.securityAdmin"
     ],
     "proj" = [
       "roles/resourcemanager.folderViewer",
