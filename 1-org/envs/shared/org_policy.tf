@@ -116,3 +116,33 @@ resource "google_access_context_manager_access_policy" "access_policy" {
   parent = "organizations/${local.org_id}"
   title  = "default policy"
 }
+
+/******************************************
+   Cloud Run
+   *******************************************/
+
+module "cloudrun_allowed_ingress" {
+  source  = "terraform-google-modules/org-policy/google"
+  version = "~> 5.1"
+
+  constraint        = "constraints/run.allowedIngress"
+  organization_id   = local.organization_id
+  folder_id         = local.folder_id
+  policy_for        = local.policy_for
+  policy_type       = "list"
+  allow             = ["is:internal-and-cloud-load-balancing"]
+  allow_list_length = 1
+}
+
+module "cloudrun_allowed_vpc_egress" {
+  source  = "terraform-google-modules/org-policy/google"
+  version = "~> 5.1"
+
+  organization_id   = local.organization_id
+  folder_id         = local.folder_id
+  policy_for        = local.policy_for
+  constraint        = "constraints/run.allowedVPCEgress"
+  policy_type       = "list"
+  allow             = ["private-ranges-only"]
+  allow_list_length = 1
+}
