@@ -10,6 +10,7 @@
 | billing\_data\_users | Google Workspace or Cloud Identity group that have access to billing data set. | `string` | n/a | yes |
 | billing\_export\_dataset\_location | The location of the dataset for billing data export. | `string` | `"US"` | no |
 | create\_access\_context\_manager\_access\_policy | Whether to create access context manager access policy. | `bool` | `true` | no |
+| create\_unique\_tag\_key | Creates unique organization-wide tag keys by adding a random suffix to each key. | `bool` | `false` | no |
 | data\_access\_logs\_enabled | Enable Data Access logs of types DATA\_READ, DATA\_WRITE for all GCP services. Enabling Data Access logs might result in your organization being charged for the additional logs usage. See https://cloud.google.com/logging/docs/audit#data-access The ADMIN\_READ logs are enabled by default. | `bool` | `false` | no |
 | domains\_to\_allow | The list of domains to allow users from in IAM. Used by Domain Restricted Sharing Organization Policy. Must include the domain of the organization you are deploying the foundation. To add other domains you must also grant access to these domains to the Terraform Service Account used in the deploy. | `list(string)` | n/a | yes |
 | enable\_hub\_and\_spoke | Enable Hub-and-Spoke architecture. | `bool` | `false` | no |
@@ -48,5 +49,6 @@
 | restricted\_net\_hub\_project\_number | The Restricted Network hub project number |
 | scc\_notification\_name | Name of SCC Notification |
 | scc\_notifications\_project\_id | The SCC notifications project ID |
+| tags | Tag Values to be applied on next steps |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
