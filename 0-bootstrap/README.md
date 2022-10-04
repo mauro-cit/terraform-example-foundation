@@ -155,46 +155,22 @@ your current Jenkins manager (controller) environment.
 
    - *`A-VALID-PROJECT-ID`* must be an existing project you have access to, this is necessary because Terraform-validator needs to link resources to a valid Google Cloud Platform project.
 1. Run `terraform apply`.
+1. Run `terraform output organization_step_terraform_service_account_email` to get the email address of the admin of step `1-org`. You need this address in a later procedure.
+1. Run `terraform output environment_step_terraform_service_account_email` to get the email address of the admin of step `2-environments`. You need this address in a later procedure.
+1. Run `terraform output networks_step_terraform_service_account_email` to get the email address of the admin of steps `3-networks-dual-svpc` and `3-networks-hub-and-spoke`. You need this address in a later procedure.
+1. Run `terraform output projects_step_terraform_service_account_email` to get the email address of the admin of step `4-projects`. You need this address in a later procedure.
+1. Run `terraform output cloudbuild_project_id` to get the ID of your Cloud Build project.
+1. Run `terraform output gcs_bucket_tfstate` to get your Google Cloud bucket name from Terraform's state.
+1. Create a `backend.tf` file based on `backend.tf.example` template and update with the name of your Cloud Storage bucket:
 
    ```bash
-   terraform apply
+   sed "s/UPDATE_ME/$(terraform output -raw gcs_bucket_tfstate)/" backend.tf.example > backend.tf
    ```
 
-1. Run `terraform output` to get the email address of the terraform service accounts that will be used to run manual steps for `shared` environments in steps `3-networks-dual-svpc`, `3-networks-hub-and-spoke`, and `4-projects`.
-
-   ```bash
-   export network_step_sa=$(terraform output -raw networks_step_terraform_service_account_email)
-   export projects_step_sa=$(terraform output -raw projects_step_terraform_service_account_email)
-
-   echo "network step service account = ${network_step_sa}"
-   echo "projects step service account = ${projects_step_sa}"
-   ```
-
-1. Run `terraform output` to get the ID of your Cloud Build project:
-
-   ```bash
-   export cloudbuild_project_id=$(terraform output -raw cloudbuild_project_id)
-   echo "cloud build project ID = ${cloudbuild_project_id}"
-   ```
-
-1. Copy the backend and update `backend.tf` with the name of your Google Cloud bucket for Terraform's state.
-
-   ```bash
-   cp backend.tf.example backend.tf
-
-   export backend_bucket=$(terraform output -raw gcs_bucket_tfstate)
-   echo "backend_bucket = ${backend_bucket}"
-
-   for i in `find -name 'backend.tf'`; do sed -i "s/UPDATE_ME/${backend_bucket}/" $i; done
-   ```
-
-1. Re-run `terraform init`. When you're prompted, agree to copy Terraform state to Cloud Storage.
-
-   ```bash
-   terraform init
-   ```
-
-1. (Optional) Run `terraform apply` to verify that state is configured correctly. You should see no changes from the previous state.
+1. Re-run `terraform init`. When you're prompted, agree to copy state to
+   Cloud Storage.
+1. (Optional) Run `terraform apply` to verify that state is configured
+   correctly. You should see no changes from the previous state.
 
 **Note 1:** The stages after `0-bootstrap` use `terraform_remote_state` data source to read common configuration like the organization ID from the output of the `0-bootstrap` stage. They will [fail](../docs/TROUBLESHOOTING.md#error-unsupported-attribute) if the state is not copied to the Cloud Storage bucket.
 
