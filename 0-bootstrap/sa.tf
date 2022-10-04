@@ -56,6 +56,7 @@ locals {
     ], local.common_roles)),
     "proj" = distinct(concat([
       "roles/accesscontextmanager.policyAdmin",
+      "roles/resourcemanager.organizationAdmin",
       "roles/serviceusage.serviceUsageConsumer",
     ], local.common_roles)),
   }
@@ -78,6 +79,7 @@ locals {
     "proj" = [
       "roles/resourcemanager.folderViewer",
       "roles/resourcemanager.folderIamAdmin",
+      "roles/artifactregistry.admin",
       "roles/compute.networkAdmin",
       "roles/compute.xpnAdmin",
     ],
