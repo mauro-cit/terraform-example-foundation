@@ -12,6 +12,9 @@
 | project\_prefix | Name prefix to use for projects created. | `string` | `"prj"` | no |
 | remote\_tfstate\_bucket | Bucket with remote state data to be used by the pipeline. | `string` | n/a | yes |
 | terraform\_docker\_tag\_version | TAG version of the terraform docker image. | `string` | `"v1"` | no |
+| terraform\_apply\_branches | List of git branches configured to run terraform apply Cloud Build trigger. All other branches will run plan by default. | `list(string)` | <pre>[<br>  "development",<br>  "non-production",<br>  "production"<br>]</pre> | no |
+| terraform\_version | Default terraform version. | `string` | `"1.3.0"` | no |
+| terraform\_version\_sha256sum | sha256sum for default terraform version. | `string` | `"380ca822883176af928c80e5771d1c0ac9d69b13c6d746e6202482aedde7d457"` | no |
 
 ## Outputs
 
