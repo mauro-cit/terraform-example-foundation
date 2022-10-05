@@ -180,12 +180,12 @@ your current Jenkins manager (controller) environment.
 1. Copy the backend and update `backend.tf` with the name of your Google Cloud bucket for Terraform's state.
 
    ```bash
-   export backend_bucket=$(terraform output -raw gcs_bucket_tfstate)
-   echo "backend_bucket = ${backend_bucket}"
+   export remote_state_bucket=$(terraform output -raw gcs_bucket_tfstate)
+   echo "remote_state_bucket = ${remote_state_bucket}"
 
    cp backend.tf.example backend.tf
 
-   for i in `find -name 'backend.tf'`; do sed -i "s/UPDATE_ME/${backend_bucket}/" $i; done
+   for i in `find -name 'backend.tf'`; do sed -i "s/UPDATE_ME/${remote_state_bucket}/" $i; done
    ```
 
 1. Re-run `terraform init`. When you're prompted, agree to copy Terraform state to Cloud Storage.
