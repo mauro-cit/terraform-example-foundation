@@ -127,6 +127,7 @@ If you are not able to use Dedicated or Partner Interconnect, you can also use a
    ```
 
 1. In the file `vpn.tf`, update the values for `environment`, `vpn_psk_secret_name`, `on_prem_router_ip_address1`, `on_prem_router_ip_address2` and `bgp_peer_asn`.
+1. Enable flag `enable_on_prem_connection_roles` on step 0-bootstrap to grant roles needed by the networks service account.
 1. Verify other default values are valid for your environment.
 
 ### Deploying with Cloud Build
