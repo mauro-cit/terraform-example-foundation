@@ -107,6 +107,9 @@ All groups in the `groups.required_groups` are required.
 
 All groups in the `groups.optional_groups` are optional.
 
+#### Additional role for Service Account Method
+If the deployment will be used through a method that uses a Service Account as the Identity Method (Cloud Build deploy) instead of the End User Credentials (local terraform deploy), this Service account must also be given the Groups Admin role at the Google Workspace level.
+
 ### Optional - Cloud Build access to on-prem
 
 Please refer to [onprem](./onprem.md) for instructions on how to configure Cloud Build access to on-prem.
